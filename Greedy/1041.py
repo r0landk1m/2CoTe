@@ -16,7 +16,7 @@ else:
       n_min = n_sum
   save = [num[save[0]], num[save[1]], num[save[2]]]
   save.sort()
-  
+
   result = save[0] * (n ** 2 + (n - 1) ** 2 * 4)
   result += save[1] * ((n - 1) * 2) * 4
   result += save[2] * 4
