@@ -17,10 +17,10 @@ while True:
     print(i, "--------------------------")
     ad = a + move[d][0]
     bd = b + move[d][1]
-    
+
     if d == -4:
       d = 0
-    
+
     if ad >= 0 and bd >= 0 and map_size[ad][bd] < 1:
       print(ad, bd, d)
       result += 1
@@ -41,5 +41,5 @@ while True:
       b += move[(d - 2)][1]
     else:
       break
-    
+
 print(result)
