@@ -1,39 +1,43 @@
-n, k = map(int, input().split())
-array_A = list(map(int, input().split()))
-array_B = list(map(int, input().split()))
+#적은 수부터 해겷해야 하는 문제
 
-array_A.sort()
-array_B.sort(reverse=True)
+from collections import deque
 
-for i in range(k):
-  #빼먹은 부분
-  if array_A[i] < array_B[i]:
-  #-------------------
-    array_A[i], array_B[i] = array_B[i], array_A[i]
+n, m, v = map(int, input().split())
+point = [list(map(int, input().split())) for _ in range(m)]
+
+check_dfs = [0] * (n + 1)
+check_bfs = [0] * (n + 1)
+
+def dfs(s, p, check):
+  if check[s] == 0:
+    check_dfs[s] = 1
+    print(s, end =" ")
   else:
-    break
+    return
+  save = n
+  for i in p:
+    if i[0] == s and i[1] < save and check[i[1]] == 0:
+      save = i[1]
+    if i[1] == s and i[0] < save and check[i[0]] == 0:
+      save = i[0]
+  dfs(save, p, check)
 
-print(sum(array_A))
+def bfs(s, p, check):
+  queue = deque([s])
+  check[s] = 1
+  while queue:
+    num = queue.popleft()
+    print(num, end=" ")
+    save = n
+    for i in p:
+      if i[0] == num and i[1] < save and check[i[1]] == 0:
+        save = i[1]
+      if i[1] == num and i[0] < save and check[i[0]] == 0:
+        save = i[0]
+    queue.append(save)
+    check[save] = 1
 
-'''
-n, k = map(int, input().split())
-a = list(map(int, input().split()))
-b = list(map(int, input().split()))
+dfs(v, point, check_dfs)
+print("")
+bfs(v, point, check_bfs)
 
-a.sort()
-b.sort(reverse=True)
-
-for i in range(k):
-  if a[i] < b[i]:
-    a[i], b[i] = b[i], a[i]
-  else:
-    break
-
-print(sum(a))
-'''
-
-'''
-5 3
-1 2 5 4 3
-5 5 6 6 5
-'''
